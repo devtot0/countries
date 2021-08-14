@@ -7,15 +7,18 @@ const SearchResultsList = ({ countriesList, countryNameFilter }) => {
       return singleCountry;
     }
   };
+
   return (
     <div>
       {countriesList
         .filter((country) => filterCountries(country, countryNameFilter))
         .map((filteredCountry) => (
           <Country
+            key={filteredCountry.alpha3Code}
+            countryId={filteredCountry.alpha3Code}
             countryName={filteredCountry.name}
             countryCapital={filteredCountry.capital}
-            countryPopulation={filteredCountry.countryPopulation}
+            countryPopulation={filteredCountry.population}
             countryLanguages={filteredCountry.languages}
             countryFlag={filteredCountry.flag}
           />

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 const Country = ({
+  countryId,
   countryName,
   countryCapital,
   countryPopulation,
@@ -8,25 +9,32 @@ const Country = ({
   countryFlag,
 }) => {
   const [showDetails, setshowDetails] = useState(false);
-  const testLangs = [{ name: "english" }, { name: "polish" }];
+
   const handleDetailsButtonClick = () => {
     setshowDetails(true);
   };
+
+  const languagesReducer = (languages, currentLanguage) => {
+    return languages.concat(currentLanguage.name);
+  };
+
   return (
     <div>
-      <div>{countryName}</div>
+      <div>
+        {countryName}{" "}
+        <button onClick={() => setshowDetails(!showDetails)}>show</button>
+      </div>
       <br />
-      <button onClick={() => setshowDetails(!showDetails)}>show</button>
       {showDetails && (
         <div>
           <h2>{countryName}</h2>
           <div>capital {countryCapital}</div>
           <div>population {countryPopulation}</div>
           <br />
-          <h3>Spoken languages {countryLanguages}</h3>
+          <h3>Spoken languages</h3>
           <ul>
-            {testLangs.map((language) => (
-              <li>{language.name}</li>
+            {countryLanguages.reduce(languagesReducer, []).map((language) => (
+              <li key={`${countryId}${language}`}>{language}</li>
             ))}
           </ul>
           <br />
