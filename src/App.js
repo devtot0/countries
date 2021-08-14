@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Country from "./components/Country";
 import Search from "./components/Search";
 
 function App() {
@@ -11,7 +12,8 @@ function App() {
 
   return (
     <div>
-      <Search countryName={name} handleChange={nameChangeHandler}/>
+      <Search countryName={name} handleChange={nameChangeHandler} />
+      <Country></Country>
     </div>
   );
 }
