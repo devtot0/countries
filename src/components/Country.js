@@ -14,15 +14,16 @@ const Country = ({
   };
   return (
     <div>
-      <h1>{countryName}</h1>
+      <div>{countryName}</div>
       <br />
       <button onClick={() => setshowDetails(!showDetails)}>show</button>
       {showDetails && (
         <div>
+          <h2>{countryName}</h2>
           <div>capital {countryCapital}</div>
           <div>population {countryPopulation}</div>
           <br />
-          <h2>languages {countryLanguages}</h2>
+          <h3>Spoken languages {countryLanguages}</h3>
           <ul>
             {testLangs.map((language) => (
               <li>{language.name}</li>
@@ -30,7 +31,7 @@ const Country = ({
           </ul>
           <br />
           <div>
-            <img src="" alt="testImage" />
+            <img src={countryFlag} alt="testImage" />
           </div>
         </div>
       )}
