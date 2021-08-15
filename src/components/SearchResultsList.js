@@ -1,20 +1,14 @@
 import React from "react";
 import Country from "./Country";
 
-const SearchResultsList = ({ countriesList, countryNameFilter }) => {
-  const filterCountries = (singleCountry, nameFilter) => {
-    if (singleCountry.name.toLowerCase().includes(nameFilter.toLowerCase())) {
-      return singleCountry;
-    }
-  };
-
-  return (
-    <div>
-      {countriesList
-        .filter((country) => filterCountries(country, countryNameFilter))
-        .map((filteredCountry) => (
+const SearchResultsList = ({ countriesList }) => {
+  const countryRender = (showButtonCondition) => {
+    return (
+      <div>
+        {countriesList.map((filteredCountry) => (
           <Country
             key={filteredCountry.alpha3Code}
+            showButton={showButtonCondition}
             countryId={filteredCountry.alpha3Code}
             countryName={filteredCountry.name}
             countryCapital={filteredCountry.capital}
@@ -23,8 +17,16 @@ const SearchResultsList = ({ countriesList, countryNameFilter }) => {
             countryFlag={filteredCountry.flag}
           />
         ))}
-    </div>
-  );
+      </div>
+    );
+  };
+  if (countriesList.length > 10) {
+    return <div>Too many countres, specify another filter</div>;
+  } else if (countriesList.length === 1) {
+    return countryRender(false);
+  } else {
+    return countryRender(true);
+  }
 };
 
 export default SearchResultsList;
