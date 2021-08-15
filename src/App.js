@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import Country from "./components/Country";
 import Search from "./components/Search";
 import axios from "axios";
 import SearchResultsList from "./components/SearchResultsList";
@@ -12,6 +11,11 @@ function App() {
     setName(event.target.value);
     console.log(event.target.value);
   };
+  const filterCountries = (singleCountry, nameFilter) => {
+    if (singleCountry.name.toLowerCase().includes(nameFilter.toLowerCase())) {
+      return singleCountry;
+    }
+  };
 
   useEffect(() => {
     axios.get("https://restcountries.eu/rest/v2/all").then((response) => {
@@ -22,8 +26,12 @@ function App() {
   return (
     <div>
       <Search countryNameFilter={name} handleChange={nameChangeHandler} />
-      <SearchResultsList countryNameFilter={name} countriesList={countries} />
-      <Country></Country>
+      <SearchResultsList
+        countryNameFilter={name}
+        countriesList={countries.filter((country) =>
+          filterCountries(country, name)
+        )}
+      />
     </div>
   );
 }
