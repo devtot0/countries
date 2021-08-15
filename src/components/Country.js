@@ -8,10 +8,12 @@ const Country = ({
   countryLanguages,
   countryFlag,
 }) => {
-  const [showDetails, setshowDetails] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
+  const [buttonText, setButtonText] = useState("show");
 
   const handleDetailsButtonClick = () => {
-    setshowDetails(true);
+    buttonText === "show" ? setButtonText("hide") : setButtonText("show");
+    setShowDetails(!showDetails);
   };
 
   const languagesReducer = (languages, currentLanguage) => {
@@ -22,7 +24,7 @@ const Country = ({
     <div>
       <div>
         {countryName}{" "}
-        <button onClick={() => setshowDetails(!showDetails)}>show</button>
+        <button onClick={handleDetailsButtonClick}>{buttonText}</button>
       </div>
       <br />
       {showDetails && (
@@ -39,7 +41,7 @@ const Country = ({
           </ul>
           <br />
           <div>
-            <img src={countryFlag} alt="testImage" />
+            <img src={countryFlag} alt={`The flag of ${countryName}`} />
           </div>
         </div>
       )}
